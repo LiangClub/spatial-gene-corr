@@ -1,0 +1,93 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gene-correlation-ultra"
+version = "1.0.0"
+description = "极致优化的空间转录组基因相关性分析工具"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+keywords = ["bioinformatics", "spatial-transcriptomics", "correlation", "numba", "gene-analysis"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = [
+    "numpy>=1.20.0",
+    "pandas>=1.3.0",
+    "scipy>=1.7.0",
+    "statsmodels>=0.13.0",
+    "numba>=0.56.0",
+    "tqdm>=4.60.0",
+    "psutil>=5.8.0",
+    "typing-extensions>=4.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=22.0.0",
+    "flake8>=4.0.0",
+    "mypy>=0.950",
+]
+jupyter = [
+    "jupyter>=1.0.0",
+    "scanpy>=1.9.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/gene-correlation-ultra"
+Documentation = "https://github.com/yourusername/gene-correlation-ultra#readme"
+Repository = "https://github.com/yourusername/gene-correlation-ultra"
+"Bug Tracker" = "https://github.com/yourusername/gene-correlation-ultra/issues"
+
+[tool.setuptools]
+packages = ["gene_correlation_ultra"]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+"gene_correlation_ultra" = ["*.txt", "*.md"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+python_classes = ["Test*"]
+addopts = "-v --tb=short"
