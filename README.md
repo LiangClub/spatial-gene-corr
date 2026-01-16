@@ -143,8 +143,7 @@ Spearman 实现经过完整验证，与 SciPy `spearmanr` 完全一致：
 
 ```python
 # 运行验证测试
-cd test
-python test_spearman_consistency.py
+python tests/test_spearman_consistency.py
 ```
 
 测试用例包括：
@@ -254,16 +253,12 @@ gene_correlation_ultra(..., sample_spots=20000)
 
 ## 📝 示例脚本
 
-### 快速测试
+### Spearman 一致性测试
 ```bash
-cd test
-./run_ultra.sh
+python tests/test_spearman_consistency.py
 ```
 
-或
-```bash
-python test/run_ultra.py
-```
+### Jupyter Notebook 教程
 
 ### Jupyter Notebook 教程
 打开 `examples/Tutorials.ipynb` 查看完整教程，包含：
