@@ -22,8 +22,9 @@ gene-correlation-ultra/
 │       └── gene_correlation_plot.py   # 可视化模块（散点图、热图）
 ├── tests/                       # 测试目录
 │   └── test_spearman_consistency.py    # Spearman一致性验证
-├── examples/                    # 示例代码
-│   └── run_ultra.py            # 快速运行示例
+├── examples/                    # 示例代码和教程
+│   ├── run_ultra.py            # 快速运行示例
+│   └── Tutorials.ipynb         # 完整教程（Jupyter Notebook）
 ├── docs/                        # 文档目录
 │   ├── PLOT_USAGE.md           # 可视化使用指南
 │   └── API_REFERENCE.md       # API参考文档（可选）
@@ -264,8 +265,15 @@ cd test
 python test/run_ultra.py
 ```
 
-### Jupyter Notebook
-打开 `corr_gene.work.ipynb` 查看完整示例。
+### Jupyter Notebook 教程
+打开 `examples/Tutorials.ipynb` 查看完整教程，包含：
+- 数据准备
+- 全部样本分析
+- 分组分析
+- 单个样本分析
+- 结果可视化
+
+详细的可视化使用说明请查看 [docs/PLOT_USAGE.md](docs/PLOT_USAGE.md)
 
 ## 📄 许可证
 
