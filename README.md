@@ -27,7 +27,7 @@ gene-correlation-ultra/
 │   └── Tutorials.ipynb         # 完整教程（Jupyter Notebook）
 ├── docs/                        # 文档目录
 │   ├── PLOT_USAGE.md           # 可视化使用指南
-│   └── API_REFERENCE.md       # API参考文档（可选）
+│   └── API_REFERENCE.md       # API参考文档
 ├── data/                        # 数据文件
 │   └── geneList                # 示例基因列表
 ├── README.md                    # 本文件
@@ -37,15 +37,6 @@ gene-correlation-ultra/
 ├── MANIFEST.in                 # 包清单
 └── .gitignore                  # Git忽略配置
 ```
-
-### docs 目录说明
-
-`docs/` 目录存放项目的详细文档：
-
-- **PLOT_USAGE.md**: 可视化模块的完整使用指南，包含所有绘图功能的示例和参数说明
-- **API_REFERENCE.md**: API参考文档（可选），包含所有函数的详细说明
-- **CHANGELOG.md**: 版本更新日志（可选）
-- **CONTRIBUTING.md**: 贡献指南（可选）
 
 ## 🚀 快速开始
 
@@ -89,7 +80,25 @@ print(f"找到 {len(sig_pairs)} 个显著相关对")
 print(sig_pairs.head(10))
 ```
 
-## 📊 可视化
+## 📈 分析方法
+
+### Pearson 相关性
+- 线性相关性
+- 适用于正态分布数据
+- **最快**: Numba 加速 ~20x
+
+### Spearman 相关性
+- 秩相关性（基于排序）
+- 适用于非线性关系、异常值
+- **快速**: Numba 加速 ~10-15x
+- **准确**: 与 SciPy 完全一致（已验证）
+
+### Kendall 相关性
+- 秩相关性（基于一致对）
+- 适用于小样本
+- 较慢（无 Numba 加速）
+
+## 🎨 可视化
 
 详细的可视化使用说明请查看 [docs/PLOT_USAGE.md](docs/PLOT_USAGE.md)
 
@@ -119,29 +128,11 @@ visualizer.plot_correlation_matrix_heatmap(
 )
 ```
 
-## 📊 分析方法
-
-### Pearson 相关性
-- 线性相关性
-- 适用于正态分布数据
-- **最快**: Numba 加速 ~20x
-
-### Spearman 相关性
-- 秩相关性（基于排序）
-- 适用于非线性关系、异常值
-- **快速**: Numba 加速 ~10-15x
-- **准确**: 与 SciPy 完全一致（已验证）
-
-### Kendall 相关性
-- 秩相关性（基于一致对）
-- 适用于小样本
-- 较慢（无 Numba 加速）
-
 ## 🔬 精度验证
 
 Spearman 实现经过完整验证，与 SciPy `spearmanr` 完全一致：
 
-```python
+```bash
 # 运行验证测试
 python tests/test_spearman_consistency.py
 ```
@@ -159,6 +150,7 @@ python tests/test_spearman_consistency.py
 ## 📦 输出文件
 
 ### 核心结果
+
 | 文件 | 说明 |
 |------|------|
 | `significant_pairs.csv` | 显著相关对表格（始终生成） |
@@ -166,6 +158,7 @@ python tests/test_spearman_consistency.py
 | `gene_correlation_ultra.log` | 详细分析日志 |
 
 ### 可选矩阵文件
+
 | 文件 | 格式 | 说明 |
 |------|------|------|
 | `matrices.npz` | NPZ | 二进制压缩格式（推荐） |
@@ -174,6 +167,7 @@ python tests/test_spearman_consistency.py
 | `pvalue_matrix.csv.gz` | CSV.GZ | 压缩 CSV |
 
 ### 可视化输出
+
 | 文件 | 说明 |
 |------|------|
 | `scatter_GENE1_GENE2.png` | 单基因对散点图 |
@@ -184,6 +178,7 @@ python tests/test_spearman_consistency.py
 ## ⚙️ 高级配置
 
 ### 内存优化
+
 ```python
 gene_correlation_ultra(
     ...,
@@ -194,6 +189,7 @@ gene_correlation_ultra(
 ```
 
 ### P 值校正
+
 支持多种校正方法：
 - `fdr_bh` (Benjamini-Hochberg, 默认)
 - `bonferroni`
@@ -209,12 +205,12 @@ gene_correlation_ultra(
 ```
 
 ### 性能调优
+
 ```python
 gene_correlation_ultra(
     ...,
     n_workers=16,               # 进程数（默认 min(16, CPU核心数)）
     enable_numba=True,          # 启用 Numba（默认 True）
-)
 )
 ```
 
@@ -231,15 +227,17 @@ gene_correlation_ultra(
 ## 🔧 故障排查
 
 ### Numba 编译错误
+
 ```bash
 # 清除缓存
 rm -rf ~/.cache/numba_cache/
 
-# 重新导入 Python
+# 重新运行 Python
 python
 ```
 
 ### 内存不足
+
 ```python
 # 降低批处理大小
 gene_correlation_ultra(..., batch_size=200, max_memory_mb=256)
@@ -249,18 +247,25 @@ gene_correlation_ultra(..., sample_spots=20000)
 ```
 
 ### 共享内存失败
+
 代码会自动回退到内存映射文件，无需手动处理。
 
 ## 📝 示例脚本
 
+### Python 脚本运行
+
+```bash
+python examples/run_ultra.py
+```
+
 ### Spearman 一致性测试
+
 ```bash
 python tests/test_spearman_consistency.py
 ```
 
 ### Jupyter Notebook 教程
 
-### Jupyter Notebook 教程
 打开 `examples/Tutorials.ipynb` 查看完整教程，包含：
 - 数据准备
 - 全部样本分析
